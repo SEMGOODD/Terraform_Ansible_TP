@@ -8,7 +8,7 @@ L'infrastructure est provisionnée avec **Terraform**, et la configuration des s
 
 ---
 
-## 📋 Prérequis
+## Prérequis
 
 Pour exécuter ce projet, vous devez avoir installé sur votre machine :
 - [Terraform](https://www.terraform.io/downloads)
@@ -37,7 +37,7 @@ Terraform a besoin du mot de passe pour qu'Ansible puisse déchiffrer ce fichier
 Créez un fichier nommé vault_pass.txt dans le dossier ansible et insérez le mot de passe :
 
 ```bash
-echo "VOTRE_MOT_DE_PASSE_VAULT" > ../ansible/vault_pass.txt
+echo "CHOISIS_ICI_MON_PRENOM(PRENOM_DE_L'ETUDIANT)_EN_MINISCULES" > ../ansible/vault_pass.txt
 ```
 
 ### 3. Déploiement

@@ -5,7 +5,6 @@ terraform/cytech-ayoub-bdd.ipv4.address
 *.tfstate
 *.tfstate.backup
 
-# Ne Pousse JAMAIS ton fichier de variables Terraform !
 terraform.tfvars
 *.retry
 ansible/inventory.ini
