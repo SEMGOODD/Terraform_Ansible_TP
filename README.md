@@ -34,7 +34,11 @@ cp terraform.tfvars.example terraform.tfvars
 ### 2. Mot de passe Ansible Vault
 Les identifiants de la base de données sont chiffrés dans ansible/vars/secrets.yml
 Terraform a besoin du mot de passe pour qu'Ansible puisse déchiffrer ce fichier lors de l'exécution.
+Créez un fichier nommé vault_pass.txt dans le dossier ansible et insérez le mot de passe :
 
+```bash
+echo "VOTRE_MOT_DE_PASSE_VAULT" > ../ansible/vault_pass.txt
+```
 
 ### 3. Déploiement
 Une fois la configuration terminée, restez dans le dossier terraform et exécutez les commandes suivantes :
