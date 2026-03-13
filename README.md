@@ -37,7 +37,7 @@ Terraform a besoin du mot de passe pour qu'Ansible puisse déchiffrer ce fichier
 Créez un fichier nommé vault_pass.txt dans le dossier ansible et insérez le mot de passe :
 
 ```bash
-echo "CHOISIS_ICI_MON_PRENOM(PRENOM_DE_L'ETUDIANT)_EN_MINISCULES" > ../ansible/vault_pass.txt
+echo "JE_VOUS_L'ENVOIE" > ../ansible/vault_pass.txt
 ```
 
 ### 3. Déploiement
