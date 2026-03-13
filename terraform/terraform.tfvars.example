@@ -13,7 +13,7 @@ app_vm_name          = "cytech-ayoub-app"
 app_vm_id            = 1039
 app_RAM              = 1024
 app_address          = "VOTRE_ADDRESSE_IP_APP/24"
-gateway              = "VOTRE_GATEWAY
+gateway              = "VOTRE_GATEWAY"
 
 key_name             = "ayoub_clef"
 file_permission      = "0600"
@@ -35,7 +35,7 @@ ssh_file             = "~/.ssh/VOTRE_CLE_SSH"
 resource_pool_id     = "terraform" 
 iso_datastore_id     = "local"
 
-provider_endpoint    = "https://192.168.100.100:8006/"
+provider_endpoint    = "https://ADRESSE_IP_ENDPOINT:PORT/"
 provider_username    = "ayoub@pam"
 provider_password    = "VOTRE_MOT_DE_PASSE" 
 content_type         = "snippets"
