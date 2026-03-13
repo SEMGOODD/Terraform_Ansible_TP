@@ -1,0 +1,16 @@
+.terraform/
+.terraform.lock.hcl
+terraform/cytech-ayoub-app.ipv4.address
+terraform/cytech-ayoub-bdd.ipv4.address
+*.tfstate
+*.tfstate.backup
+
+# Ne Pousse JAMAIS ton fichier de variables Terraform !
+terraform.tfvars
+*.retry
+ansible/inventory.ini
+*.pem
+*.key
+id_rsa
+id_terraform
+vault_pass.txt

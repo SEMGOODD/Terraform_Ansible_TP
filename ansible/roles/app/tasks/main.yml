@@ -1,0 +1,58 @@
+- name: Installer les paquets nécessaires
+  ansible.builtin.apt:
+    name:
+      - python3
+      - python3-pip
+      - python3-venv
+    state: present
+    update_cache: yes
+
+- name: Créer le répertoire de l'application
+  ansible.builtin.file:
+    path: /opt/fastapi_app
+    state: directory
+    owner: "{{owner}}"
+    mode: '0755'
+
+- name: Copier le code de l'application
+  ansible.builtin.template:
+    src: main.py.j2
+    dest: /opt/fastapi_app/main.py
+    owner: "{{owner}}"
+    mode: '0644'
+
+- name: Créer le venv et installer les packages
+  ansible.builtin.pip:
+    name:
+      - fastapi
+      - uvicorn
+      - psycopg2-binary
+    virtualenv: /opt/fastapi_app/venv
+    virtualenv_command: python3 -m venv
+
+- name: Créer le fichier du service systemd
+  ansible.builtin.template:
+    src: app.service.j2
+    dest: /etc/systemd/system/ayoub_app.service
+    mode: '0644'
+
+- name: Dépoloyer le service systemd
+  ansible.builtin.systemd:
+    name: "ayoub_app"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: Attendre le démarrage de l'API
+  ansible.builtin.pause:
+    seconds: 3
+
+- name: Faire une requête HTTP locale
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:8080/"
+    return_content: true
+  register: api_response
+
+- name: Afficher le résultat de l'API
+  ansible.builtin.debug:
+    msg: "Réponse de l'API {{api_response.content}}"

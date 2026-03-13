@@ -1,0 +1,74 @@
+- name: Installer PostgreSQL avec d'autres paquets
+  ansible.builtin.apt:
+    name:
+      - postgresql
+      - python3-psycopg2
+      - acl
+    state: present
+    update_cache: yes
+
+- name: Démarrer PostgreSQL
+  ansible.builtin.systemd:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: Créer le groupe dans PostgreSQL
+  community.postgresql.postgresql_user:
+    name: "{{db_group}}"
+    role_attr_flags: NOLOGIN
+  become_user: postgres
+  
+- name: Créer l'user dans PostgreSQL
+  community.postgresql.postgresql_user:
+    name: "{{db_user}}"
+    password: "{{db_password}}"
+  become_user: postgres
+
+- name: Ajouter l'user dans au groupe cytech_grp
+  community.postgresql.postgresql_membership:
+    group: "{{db_group}}"
+    target_roles: "{{db_user}}"
+    state: present
+  become_user: postgres
+  
+- name: Créer la base de données
+  community.postgresql.postgresql_db:
+    name: "{{db_name}}"
+    owner: "{{db_user}}"
+  become_user: postgres
+
+- name: Autoriser PostgreSQL à l'écoute du réseau
+  ansible.builtin.lineinfile:
+    path: /etc/postgresql/14/main/postgresql.conf
+    regexp: "^#?listen_addresses"
+    line: "listen_addresses = '*'"
+  notify: Redémarrer PostgreSQL
+
+- name: Autoriser seulement les connexions locales et la VM app
+  community.postgresql.postgresql_pg_hba:
+    dest: /etc/postgresql/14/main/pg_hba.conf
+    source: 127.0.0.1/32
+    contype: host
+    databases: "{{db_name}}"
+    users: "{{db_user}}"
+    method: md5
+  become_user: postgres
+  notify: Redémarrer PostgreSQL
+
+- name: Maintenant on autorise les connexions depuis le app
+  community.postgresql.postgresql_pg_hba:
+    dest: /etc/postgresql/14/main/pg_hba.conf
+    contype: host
+    databases: "{{db_name}}"
+    users: "{{db_user}}"
+    source: "{{ip_app}}/32"
+    method: md5
+  become_user: postgres
+  notify: Redémarrer PostgreSQL
+
+- name: Exécuter le script SQL d'initialisation
+  community.postgresql.postgresql_query:
+    db: "{{db_name}}"
+    query: "{{ lookup('file', 'init.sql') }}"
+  become_user: postgres

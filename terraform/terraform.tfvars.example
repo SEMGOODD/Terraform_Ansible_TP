@@ -1,0 +1,42 @@
+node_name            = "proxmox2"
+core                 = 1
+size                 = 20
+bridge               = "vmbr0"
+pool_id              = "terraform"
+
+bdd_vm_name          = "cytech-ayoub-bdd"
+bdd_vm_id            = 1038
+bdd_RAM              = 2048
+bdd_address          = "VOTRE_ADDRESSE_IP_BDD/24"
+
+app_vm_name          = "cytech-ayoub-app"
+app_vm_id            = 1039
+app_RAM              = 1024
+app_address          = "VOTRE_ADDRESSE_IP_APP/24"
+gateway              = "VOTRE_GATEWAY
+
+key_name             = "ayoub_clef"
+file_permission      = "0600"
+directory_permission = "0700"
+algorithm            = "RSA"
+rsa_bits             = 4096
+vm_count             = 2
+
+datastore_id         = "local-lvm"
+interface            = "virtio0"
+password             = "ayoub"
+username             = "ayoub"
+connection_type      = "ssh"
+user                 = "ayoub"
+fichier_source       = "fichier_template.txt"
+fichier_destination  = "/home/ayoub/fichier_template.txt"
+file_name            = "jammy-server-cloudimg-amd64.img"
+ssh_file             = "~/.ssh/VOTRE_CLE_SSH"
+resource_pool_id     = "terraform" 
+iso_datastore_id     = "local"
+
+provider_endpoint    = "https://192.168.100.100:8006/"
+provider_username    = "ayoub@pam"
+provider_password    = "VOTRE_MOT_DE_PASSE" 
+content_type         = "snippets"
+yaml_file_name       = "cloud-config.yaml"

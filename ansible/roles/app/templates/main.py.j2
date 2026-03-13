@@ -1,0 +1,28 @@
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+import psycopg2
+
+app = FastAPI()
+DB_Host = "{{ ip_bdd }}"
+DB_Password = "{{ db_password }}"
+DB_Name = "{{db_name}}"
+DB_User = "{{db_user}}"
+
+@app.get("/", response_class=PlainTextResponse)
+def get_name():
+    try:
+        conn = psycopg2.connect(host=DB_Host, database=DB_Name, user=DB_User, password=DB_Password)
+        cur = conn.cursor()
+        cur.execute("SELECT name FROM ayoub LIMIT 1;")
+        result = cur.fetchone()
+        
+        cur.close()
+        conn.close()
+        
+        if result:
+            return f"Hello {result[0]}"
+        else:
+            return {"status": "error", "message": "Aucun nom trouvé dans la base"}
+        
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
