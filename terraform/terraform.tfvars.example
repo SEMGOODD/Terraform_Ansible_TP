@@ -24,7 +24,7 @@ vm_count             = 2
 
 datastore_id         = "local-lvm"
 interface            = "virtio0"
-password             = "ayoub"
+password             = "VOTRE_MOT_DE_PASSE"
 username             = "ayoub"
 connection_type      = "ssh"
 user                 = "ayoub"

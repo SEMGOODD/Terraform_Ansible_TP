@@ -13,3 +13,4 @@ ansible/inventory.ini
 *.key
 id_rsa
 id_terraform
+./ansible/vault_pass.txt
