@@ -96,7 +96,7 @@ resource "local_file" "ansible_inventory" {
   ansible_user=ayoub
   ip_bdd=${split("/", var.bdd_address)[0]}
   ip_app=${split("/", var.app_address)[0]}
-  ansible_ssh_private_key_file=~/.ssh/id_terraform
+  ansible_ssh_private_key_file=${var.ssh_file}
   ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 EOF
 }
